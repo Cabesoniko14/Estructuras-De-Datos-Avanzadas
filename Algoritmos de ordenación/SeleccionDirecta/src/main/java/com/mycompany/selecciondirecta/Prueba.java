@@ -17,7 +17,7 @@ public class Prueba {
         int datos[] = {1,8,0,3,2, 7, 12, 4, 6};
         for (int j=0; j < 9; j++)
                 System.out.print(datos[j] + " ");
-        
+        System.out.println("\n");
         //test.seleccionDirecta(datos);
         //for (int j=0; j < 6 ; j++)
                 //System.out.print(datos[j] + " ");

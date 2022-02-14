@@ -62,11 +62,12 @@ public class AlgOrdenamiento <T>{
         
         int i;
         int lim;
+        int aux;
         
         for(i = 0; i < datos.length - 1; i ++){
             lim = i+1;
             while (lim > 0 && (datos[lim] <= datos[lim - 1])){
-                int aux = datos[lim];
+                aux = datos[lim];
                 datos[lim] = datos[lim-1];
                 datos[lim - 1] = aux;
                 lim--;
@@ -115,7 +116,7 @@ public class AlgOrdenamiento <T>{
         
         if (min < max){
             int pivote = part(datos, min, max -1, max);
-            quickSort(datos, min, pivote -1);
+            quickSort(datos, min, pivote-1);
             quickSort(datos, pivote+1, max);
         
         }
@@ -124,9 +125,9 @@ public class AlgOrdenamiento <T>{
         
     private int part(int[] datos, int i, int j, int pivPos){
         if (i < j){
-            while(datos[i] < datos[pivPos])
+            while(datos[i] < datos[pivPos] && i < j)
                 i++;
-            while(datos[j] > datos[pivPos])
+            while(datos[j] > datos[pivPos] && i < j)
                 j--;
             int aux = datos[i];
             datos[i] = datos[j];
@@ -140,6 +141,36 @@ public class AlgOrdenamiento <T>{
             datos[pivPos] = aux2;
             return i;
         }
+    
+    }
+    
+    // Bubble sort
+    
+
+    
+    public void bubbleSortR(int[] arr){
+        
+        bubbleSortR(arr, arr.length-1, 0);
+    
+    }
+    
+    private void bubbleSortR(int[] arr, int lim, int i){
+        if (lim > 0){
+        
+            if (i < lim){
+                if (arr[i] > (arr[i+1])){
+                int aux = arr[i];
+                arr[i] = arr[i+1];
+                arr[i+1] = aux;
+                }
+                bubbleSortR(arr, lim, i+1);
+            }
+            else
+                bubbleSortR(arr, lim-1, 0);
+        
+        }
+        
+        
     
     }
     
