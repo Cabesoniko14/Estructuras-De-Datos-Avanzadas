@@ -115,7 +115,7 @@ public class AlgOrdenamiento <T>{
     private void quickSort(int[] datos, int min, int max){
         
         if (min < max){
-            int pivote = part(datos, min, max -1, max);
+            int pivote = part(datos, min, max);
             quickSort(datos, min, pivote-1);
             quickSort(datos, pivote+1, max);
         
@@ -123,24 +123,89 @@ public class AlgOrdenamiento <T>{
     
     }
         
-    private int part(int[] datos, int i, int j, int pivPos){
-        if (i < j){
-            while(datos[i] < datos[pivPos] && i < j)
-                i++;
-            while(datos[j] > datos[pivPos] && i < j)
-                j--;
-            int aux = datos[i];
-            datos[i] = datos[j];
-            datos[j] = aux;
-            return part(datos, i+1, j-1, pivPos);
+    private int part(int[] datos, int min, int max){
+        
+        if (min < max){
+            if (datos[min] > datos [min+1]){  // SWAP por el siguiente y avanza MIN
+                int aux = datos[min];
+                datos[min] = datos[min+1];
+                datos[min+1] = aux;
+                return part(datos, min+1, max);
+                
+            }
+            else{ // SWAP por el final y reduce MAX
+                int aux = datos[min+1];
+                datos[min+1] = datos[max];
+                datos[max] = aux;
+                return part(datos, min, max-1);
+            }
         
         }
         else{
-            int aux2 = datos[i];
-            datos[i] = datos[pivPos];
-            datos[pivPos] = aux2;
-            return i;
+            return min;
+        
         }
+    }
+    
+    public void mergeSort(int[] datos){
+        mergeSort(datos, 0, datos.length-1);
+    
+    }
+    
+    private void mergeSort(int[] datos, int min, int max){
+        
+        if (max - min <= 1){
+            return;
+        }
+        
+        else{
+            int mitad = (max-min)/2 + min;
+            mergeSort(datos, min, mitad);
+            mergeSort(datos, mitad+1, max);
+            merge(datos, min, mitad, mitad+1, max, 0);
+        }
+    
+    }
+    
+    private void merge(int[] datos, int i, int maxi, int j, int maxj, int k){
+        int[] temp = new int[datos.length];
+        
+        while((i < maxi) && (j < maxj)){
+            if(datos[i] < datos[j]){
+                temp[k] = datos[i];
+                i++;
+            
+            }
+            else{
+                temp[k] = datos[j];
+                j++;
+            }
+            k++;
+        }
+        
+        if (i < maxi){
+            while(i < maxi){
+                temp[k] = datos[i];
+                k++;
+                i++;
+            }
+        }
+        
+        if (j < maxj){
+            while(j < maxj){
+                temp[k] = datos[j];
+                j++;
+                k++;
+            }
+        
+        }
+        
+        // copiar de regreso
+        
+        for (int z = 0; z < datos.length -1; z++){
+            datos[z] = temp[z];
+        }
+        
     
     }
     

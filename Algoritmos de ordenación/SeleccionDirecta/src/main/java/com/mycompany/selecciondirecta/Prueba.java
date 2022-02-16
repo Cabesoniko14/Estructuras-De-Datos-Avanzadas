@@ -22,7 +22,7 @@ public class Prueba {
         //for (int j=0; j < 6 ; j++)
                 //System.out.print(datos[j] + " ");
         
-        test.quickSort(datos);
+        test.mergeSort(datos);
         for (int j=0; j < 9; j++)
                 System.out.print(datos[j] + " ");
         
