@@ -14,17 +14,13 @@ public class Prueba {
     public static void main(String[] args) {
         
         AlgOrdenamiento test = new AlgOrdenamiento();
-        int datos[] = {1,8,0,3,2, 7, 12, 4, 6};
-        for (int j=0; j < 9; j++)
+        int datos[] = {1,8,0,3,2, 7, 12, 4};
+        for (int j=0; j < 8; j++)
                 System.out.print(datos[j] + " ");
         System.out.println("\n");
-        //test.seleccionDirecta(datos);
-        //for (int j=0; j < 6 ; j++)
-                //System.out.print(datos[j] + " ");
         
         test.mergeSort(datos);
-        for (int j=0; j < 9; j++)
+        for (int j=0; j < 8; j++)
                 System.out.print(datos[j] + " ");
-        
     }
 }

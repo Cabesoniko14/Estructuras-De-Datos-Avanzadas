@@ -154,60 +154,67 @@ public class AlgOrdenamiento <T>{
     
     private void mergeSort(int[] datos, int min, int max){
         
-        if (max - min <= 1){
-            return;
+        if (min < max){
+            int mid = min + (max - min)/2;
+            mergeSort(datos, min, mid);
+            mergeSort(datos, mid+1, max);
+            merge(datos, min, mid, max);
         }
-        
-        else{
-            int mitad = (max-min)/2 + min;
-            mergeSort(datos, min, mitad);
-            mergeSort(datos, mitad+1, max);
-            merge(datos, min, mitad, mitad+1, max, 0);
-        }
-    
     }
     
-    private void merge(int[] datos, int i, int maxi, int j, int maxj, int k){
-        int[] temp = new int[datos.length];
+    private void merge(int[]datos, int izq, int mid, int der){
         
-        while((i < maxi) && (j < maxj)){
-            if(datos[i] < datos[j]){
-                temp[k] = datos[i];
+        // Creamos dos arrays temporales distintos para cada segmento del arreglo datos
+        // Creamos sus tamaños, que servirán como límites para los while al copiar datos
+        
+        int limMid = mid - izq + 1;
+        int limMax = der - mid;
+        
+        
+        int arrIzq[] = new int[limMid];
+        int arrDer[] = new int[limMax];
+        
+        // Copiar arreglo izquierdo
+        
+        for (int i = 0; i < limMid; ++i)
+            arrIzq[i] = datos[izq + i];
+        
+        for (int j = 0; j < limMax; ++j){
+            arrDer[j] = datos[mid + 1 + j];
+        }
+        
+        
+        int k = izq;
+        int i = 0;
+        int j = 0;
+        while (i < limMid && j < limMax){
+            if (arrIzq[i] <= arrDer[j]){
+                datos[k] = arrIzq[i];
                 i++;
-            
             }
             else{
-                temp[k] = datos[j];
+                datos[k] = arrDer[j];
                 j++;
             }
             k++;
         }
         
-        if (i < maxi){
-            while(i < maxi){
-                temp[k] = datos[i];
-                k++;
-                i++;
-            }
+        while(i < limMid){
+            datos[k] = arrIzq[i];
+            i++;
+            k++;
+            
         }
         
-        if (j < maxj){
-            while(j < maxj){
-                temp[k] = datos[j];
-                j++;
-                k++;
-            }
+        while (j < limMax){
+            datos[k] = arrDer[j];
+            j++;
+            k++;
         
         }
-        
-        // copiar de regreso
-        
-        for (int z = 0; z < datos.length -1; z++){
-            datos[z] = temp[z];
-        }
-        
     
     }
+    
     
     // Bubble sort
     
