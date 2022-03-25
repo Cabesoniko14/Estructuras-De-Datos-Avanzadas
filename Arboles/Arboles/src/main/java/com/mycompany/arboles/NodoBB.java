@@ -12,7 +12,7 @@ public class NodoBB<T extends Comparable<T>>{
     T elem;
     NodoBB<T> izq, der,papa;
 
-    NodoBB (T dato){
+    public NodoBB (T dato){
     
         elem = dato;
         izq = null;
@@ -45,7 +45,7 @@ public class NodoBB<T extends Comparable<T>>{
     public void setElem(T elemento){
       elem=elemento;
     } 
-    public void cuelga(NodoBB<T> actual){
+    public void cuelga(NodoBB<T> actual){ // le agregas el nodo actual y 
       if (actual==null)
         return;
       if(actual.getElem().compareTo(elem)<=0)
@@ -54,6 +54,10 @@ public class NodoBB<T extends Comparable<T>>{
         der=actual; 
       actual.setPapa(this);
     }
+    
+    
+    
+    
 
 
   

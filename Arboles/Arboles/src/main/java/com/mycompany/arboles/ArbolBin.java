@@ -111,21 +111,29 @@ public class ArbolBin <T extends Comparable<T>> implements BinaryTreeADT<T>{
     
     }
     
-    // Preorden, postOrden, inOrden iterativos
-    public Iterator<T> preOrden2(){
+    public Iterator<T> iteratorPreOrder2(){
+        return preOrder2(raiz);
+    
+    }
+    
+    private Iterator<T> preOrder2(NodoBin<T> nodo){
         ArrayList<T> lista = new ArrayList<T>();
-        Stack<NodoBin<T>> pila = new Stack<NodoBin<T>>();
-        if (isEmpty())
+        if (nodo == null){
             return lista.iterator();
-        pila.add(raiz);
+        }
         
-        while(!pila.empty()){
-            NodoBin<T> actual = pila.pop();
-            lista.add(actual.getElem());
-            if (actual.getDer() != null)
-                pila.add(actual.getDer());
-            if (actual.getIzq() != null)
-                pila.add(actual.getIzq());
+        Stack<NodoBin<T>> pilaNodo = new Stack<NodoBin<T>>();
+        pilaNodo.push(nodo);
+        
+        while (!pilaNodo.empty()){
+            NodoBin<T> nodito = pilaNodo.pop();
+            lista.add(nodito.getElem());
+            
+            if (nodito.getDer() != null)
+                pilaNodo.add(nodo.getDer());
+            if(nodito.getIzq() != null)
+                pilaNodo.add(nodo.getIzq());
+        
         }
         
         return lista.iterator();
@@ -135,23 +143,68 @@ public class ArbolBin <T extends Comparable<T>> implements BinaryTreeADT<T>{
     // Por nivel
     
     public Iterator<T> iteratorPorNivel(){
+        return iteratorPorNivel(raiz);
+    
+    }
+    
+    private Iterator<T> iteratorPorNivel(NodoBin<T> nodo){
         ArrayList<T> lista = new ArrayList<T>();
-        ArrayList<NodoBin<T>> cola = new ArrayList<NodoBin<T>>() {};
-        if (isEmpty())
+        if (nodo == null)
             return lista.iterator();
-        cola.add(raiz);
         
-        while(!cola.isEmpty()){
-            NodoBin<T> actual = cola.remove(0);
-            lista.add(actual.getElem());
-            if (actual.getDer() != null)
-                cola.add(actual.getDer());
-            if (actual.getIzq() != null)
-                cola.add(actual.getIzq());
+        ArrayList<NodoBin<T>> bob = new ArrayList <NodoBin<T>>();
+        bob.add(nodo);
+        
+        while (!bob.isEmpty()){
+            NodoBin<T> nodito = bob.remove(0);
+            
+            if (nodito.getDer() != null)
+                bob.add(nodo.getDer());
+            if (nodito.getIzq() != null)
+                bob.add(nodo.getIzq());
+        
         }
         
         return lista.iterator();
     
     }
     
-}
+   
+    
+    public void imprimirPorNivel(){
+        if (raiz == null){
+            System.out.println("fuck");
+            return;
+        }
+        
+        ArrayList<NodoBin<T>> cola = new ArrayList<NodoBin<T>>();
+        cola.add(raiz);
+        
+        while (!cola.isEmpty()){
+            NodoBin<T> mynode = cola.get(0);
+            System.out.print(mynode.elem + " ");
+            cola.remove(0);
+            
+            if (mynode.getIzq() != null){
+                cola.add(mynode.getIzq());
+            }
+            if (mynode.getDer() != null){
+                cola.add(mynode.getDer());
+            }
+        
+        }
+    
+    }
+
+    
+       
+ }
+    
+    
+        
+    
+    
+    
+    
+    
+
